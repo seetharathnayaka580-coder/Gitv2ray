@@ -16,6 +16,7 @@ import { Toast, ToastMessage } from './components/Toast';
 import { QrModal } from './components/QrModal';
 import { ConfigPreviewModal } from './components/ConfigPreviewModal';
 import { AuthModal } from './components/AuthModal';
+import { GitHubHostDoctorModal } from './components/GitHubHostDoctorModal';
 import { DashboardSettings, ProxyNode } from './types/proxy';
 import { 
   buildClashYaml, 
@@ -197,6 +198,26 @@ export default function App() {
   // Auth Modal State
   const [isAuthOpen, setIsAuthOpen] = useState(false);
 
+  // Host Doctor Modal State
+  const [isDoctorOpen, setIsDoctorOpen] = useState(false);
+
+  const handleApplyCustomHost = (newHost: string) => {
+    const cleanHost = newHost.trim().replace(/^https?:\/\//, '').replace(/\/.*$/, '');
+    setSettings((prev) => ({
+      ...prev,
+      domain: cleanHost,
+      sni: cleanHost
+    }));
+    setNodes((prev) =>
+      prev.map((n) => ({
+        ...n,
+        host: cleanHost,
+        server: n.cleanIp ? n.server : cleanHost,
+        sni: cleanHost
+      }))
+    );
+  };
+
   // Active Node selector
   const activeNode = nodes.find((n) => n.id === activeNodeId) || nodes[0] || INITIAL_NODES[0];
 
@@ -287,6 +308,7 @@ export default function App() {
               setQrModal({ isOpen: true, title, data, subtitle })
             }
             onOpenConfigPreview={handleOpenConfigPreview}
+            onOpenDoctor={() => setIsDoctorOpen(true)}
           />
         )}
 
@@ -372,6 +394,18 @@ export default function App() {
           setIsAuthOpen(false);
           showToast('Dashboard unlocked successfully', 'success');
         }}
+      />
+
+      {/* GitHub Host Doctor Modal */}
+      <GitHubHostDoctorModal
+        isOpen={isDoctorOpen}
+        onClose={() => setIsDoctorOpen(false)}
+        currentHost={settings.domain}
+        onApplyHost={(host) => {
+          handleApplyCustomHost(host);
+          showToast(`Host set to ${host}`, 'success');
+        }}
+        onShowToast={showToast}
       />
 
       {/* Floating Toast Alerts */}

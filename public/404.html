@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tunnel X - V2Ray Proxy Configuration Dashboard</title>
+    <script>
+      // Single Page App redirect for GitHub Pages
+      // Redirects any 404 subpath back to the root index with query params preserved
+      var path = window.location.pathname;
+      var repo = path.split('/')[1];
+      // If deployed at username.github.io/repo/
+      if (repo && !window.location.hostname.includes('.pp.ua') && !window.location.hostname.includes('.pages.dev')) {
+        window.location.replace('/' + repo + '/');
+      } else {
+        window.location.replace('/');
+      }
+    </script>
+  </head>
+  <body style="background:#070b14;color:#e2e8f0;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;">
+    <div style="text-align:center;">
+      <h2 style="color:#22d3ee;margin-bottom:8px;">TUNNEL X</h2>
+      <p style="color:#94a3b8;font-size:14px;">Loading proxy configuration dashboard...</p>
+    </div>
+  </body>
+</html>

@@ -22,6 +22,7 @@ interface OverviewTabProps {
   onShowToast: (text: string, type?: 'success' | 'info' | 'error') => void;
   onOpenQr: (title: string, data: string, subtitle?: string) => void;
   onOpenConfigPreview: (clientName: string, fileName: string) => void;
+  onOpenDoctor: () => void;
 }
 
 export const OverviewTab: React.FC<OverviewTabProps> = ({
@@ -31,7 +32,8 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({
   onUpdateNode,
   onShowToast,
   onOpenQr,
-  onOpenConfigPreview
+  onOpenConfigPreview,
+  onOpenDoctor
 }) => {
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const [isEditingHost, setIsEditingHost] = useState(false);
@@ -89,6 +91,54 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({
 
   return (
     <div className="space-y-6 animate-in fade-in duration-200">
+      {/* Host Doctor & Custom Domain Switcher */}
+      <div className="bg-[#091122] border border-cyan-900/40 rounded-lg px-4 py-2.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className="text-slate-400">Host Domain:</span>
+          <span className="font-mono font-semibold text-cyan-300 bg-slate-900/80 px-2 py-0.5 rounded border border-slate-800">
+            {settings.domain}
+          </span>
+          <div className="flex items-center gap-1.5 ml-1">
+            <button
+              onClick={() => {
+                onUpdateSettings({ domain: 'tunnelwe.pages.dev' });
+                onUpdateNode({ host: 'tunnelwe.pages.dev', server: 'tunnelwe.pages.dev', sni: 'tunnelwe.pages.dev' });
+                onShowToast('Switched host to tunnelwe.pages.dev');
+              }}
+              className={`px-2 py-0.5 rounded text-[11px] transition-colors cursor-pointer ${
+                settings.domain === 'tunnelwe.pages.dev'
+                  ? 'bg-cyan-950 text-cyan-300 font-medium border border-cyan-800/60'
+                  : 'text-slate-400 hover:text-slate-200 bg-slate-900/60 hover:bg-slate-800'
+              }`}
+            >
+              tunnelwe.pages.dev
+            </button>
+            <button
+              onClick={() => {
+                onUpdateSettings({ domain: 'ge.nvderttf56.pp.ua' });
+                onUpdateNode({ host: 'ge.nvderttf56.pp.ua', server: 'ge.nvderttf56.pp.ua', sni: 'ge.nvderttf56.pp.ua' });
+                onShowToast('Switched host to ge.nvderttf56.pp.ua');
+              }}
+              className={`px-2 py-0.5 rounded text-[11px] transition-colors cursor-pointer ${
+                settings.domain === 'ge.nvderttf56.pp.ua'
+                  ? 'bg-cyan-950 text-cyan-300 font-medium border border-cyan-800/60'
+                  : 'text-slate-400 hover:text-slate-200 bg-slate-900/60 hover:bg-slate-800'
+              }`}
+            >
+              ge.nvderttf56.pp.ua
+            </button>
+          </div>
+        </div>
+
+        <button
+          onClick={onOpenDoctor}
+          className="flex items-center gap-1.5 text-xs text-amber-300 hover:text-amber-200 bg-amber-950/40 hover:bg-amber-900/40 border border-amber-800/50 px-2.5 py-1 rounded transition-colors cursor-pointer shrink-0"
+        >
+          <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
+          <span>Fix GitHub Host / Blank Screen</span>
+        </button>
+      </div>
+
       {/* Top Info Cards Grid */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
         {/* PROTOCOL */}

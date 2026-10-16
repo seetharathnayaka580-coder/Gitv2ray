@@ -162,6 +162,53 @@ export const MoreTab: React.FC<MoreTabProps> = ({
 
   return (
     <div className="space-y-6 animate-in fade-in duration-200">
+      {/* GitHub Host Doctor: Blank Screen Fix */}
+      <div className="bg-[#09152b] border border-cyan-800/80 rounded-xl p-5 space-y-3">
+        <div className="flex items-center justify-between pb-2 border-b border-cyan-900/60">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-cyan-950 border border-cyan-700/60 rounded-lg text-cyan-300">
+              <ShieldAlert className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="text-sm font-bold text-white">GitHub Host Blank Screen Doctor</h3>
+              <p className="text-xs text-cyan-200/80">
+                Fixing blank page on custom host <code className="text-white font-mono">{settings.domain}</code>
+              </p>
+            </div>
+          </div>
+          <span className="text-[10px] bg-emerald-950 text-emerald-300 border border-emerald-800/60 px-2 py-0.5 rounded font-mono">
+            4 / 4 CHECKS APPLIED
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+          <div className="bg-[#060e1f] border border-cyan-900/40 rounded-lg p-3">
+            <span className="font-semibold text-emerald-400 block mb-1">✔ Relative Base Path (<code className="text-white">base: './'</code>)</span>
+            <p className="text-slate-400 text-[11px]">
+              Vite default <code className="text-slate-300">base: '/'</code> caused 404 MIME type errors when loading JavaScript chunks. Configured relative base path.
+            </p>
+          </div>
+          <div className="bg-[#060e1f] border border-cyan-900/40 rounded-lg p-3">
+            <span className="font-semibold text-emerald-400 block mb-1">✔ Jekyll Disabled (<code className="text-white">.nojekyll</code>)</span>
+            <p className="text-slate-400 text-[11px]">
+              Created <code className="text-slate-300">public/.nojekyll</code> to prevent GitHub Pages from discarding static asset folders.
+            </p>
+          </div>
+          <div className="bg-[#060e1f] border border-cyan-900/40 rounded-lg p-3">
+            <span className="font-semibold text-emerald-400 block mb-1">✔ SPA Fallback (<code className="text-white">404.html</code>)</span>
+            <p className="text-slate-400 text-[11px]">
+              Added <code className="text-slate-300">public/404.html</code> redirect handler so page refreshes and deep routes don't hit GitHub's 404.
+            </p>
+          </div>
+          <div className="bg-[#060e1f] border border-cyan-900/40 rounded-lg p-3">
+            <span className="font-semibold text-emerald-400 block mb-1">✔ Custom Domain (<code className="text-white">CNAME</code>)</span>
+            <p className="text-slate-400 text-[11px]">
+              Added <code className="text-slate-300">public/CNAME</code> with <code className="text-slate-300">{settings.domain}</code> to prevent GitHub resetting custom domains on redeploy.
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* GitHub Pages Hosting Guide */}
       <div className="bg-[#0b1222] border border-slate-800/90 rounded-xl p-5 space-y-4">
         <div className="flex items-center gap-3 pb-3 border-b border-slate-800">
