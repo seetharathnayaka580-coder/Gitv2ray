@@ -1,0 +1,6 @@
+{
+  "name": "Tunnel X - V2Ray Proxy Configuration Dashboard",
+  "description": "Static V2Ray, VLESS, and Trojan proxy configuration and subscription management dashboard for GitHub Pages and Cloudflare Pages.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
